@@ -1,0 +1,495 @@
+body {
+    scroll-behavior: smooth;
+    background-image: url('img/bg.gif');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.game {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+}
+
+#gameboy {
+    width: 123%;
+    height: auto;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin: -83px 0;
+    text-align: center;
+    /* width: 80%; */
+    max-width: 600px;
+}
+
+.card h2 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.card button {
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+}
+.restartButton {
+    background-color: #8eff1c;
+    font-size: 9px;
+    height: 18px;
+    width: 102px;
+    border-radius: 10px;
+}
+.saltarButton {
+    background-color: #8eff1c;
+    font-size: 9px;
+    height: 18px;
+    width: 77px;
+    border-radius: 10px;
+}
+
+.muteButton {
+    background-color: #797979;
+    font-size: 9px;
+    height: 18px;
+    width: 77px;
+    border-radius: 10px;
+}
+.card button:hover {
+    background-color: #0056b3;
+}
+
+.centers {
+    transform: translate(0px, -180px);
+}
+
+.center {
+    text-align: center;
+}
+
+.center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* main {
+    display: flex;
+    flex-direction: column;
+}
+
+main button {
+    font-size: 21px;
+    padding: 10px;
+    margin: 15px 0;
+    border-radius: 5px;
+    cursor: pointer;
+} */
+
+@media (min-width: 769px) and (max-width: 840px) {
+    
+
+    .centers {
+        display: block;
+        position: absolute;
+        transform: translate(0%, 369%);
+    }
+
+    .restartButton {
+        background-color: #2fff00;
+        font-size: 9px;
+        height: 18px;
+        width: 99px;
+        border-radius: 10px;
+    }
+
+    .saltarButton {
+        background-color: #797979;
+        font-size: 9px;
+        height: 18px;
+        width: 77px;
+        border-radius: 10px;
+    }
+    #gameboy {
+        width: 131%;
+        height: auto;
+    }
+}
+
+@media (min-width: 701px) and (max-width: 768px) {
+    .centers {
+        display: block;
+        position: absolute;
+        transform: translate(-1%, 549%);
+    }
+
+    .restartButton {
+        background-color: #2fff00;
+        font-size: 9px;
+        height: 18px;
+        width: 99px;
+        border-radius: 10px;
+    }
+
+    .saltarButton {
+        background-color: #797979;
+        font-size: 9px;
+        height: 18px;
+        width: 77px;
+        border-radius: 10px;
+    }
+    main {
+        position: absolute;
+        z-index: 3;
+        transform: translate(2%, -82%);
+    }
+
+    header {
+        margin-top: 6px;
+        z-index: 1;
+    }
+
+    .gameContent {
+        transform: translate(24%, -37%);
+        height: 29%;
+        padding: 7px 9px 25px 9px;
+        z-index: 1;
+    }
+
+    main button {
+        width: 66%;
+        font-size: 75%;
+        padding: 10px;
+        margin: 10px 0px 6px 0;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    h1 {
+        font-size: 70%;
+    }
+
+    #gameboy {
+        width: 124%;
+        height: auto;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 700px) {
+    .centers {
+        display: block;
+        position: absolute;
+        transform: translate(-1%, 549%);
+    }
+
+    .restartButton {
+        background-color: #2fff00;
+        font-size: 9px;
+        height: 18px;
+        width: 99px;
+        border-radius: 10px;
+    }
+
+    .saltarButton {
+        background-color: #797979;
+        font-size: 9px;
+        height: 18px;
+        width: 77px;
+        border-radius: 10px;
+    }
+    main {
+        position: absolute;
+        z-index: 3;
+        transform: translate(2%, -82%);
+    }
+
+    header {
+        margin-top: 6px;
+        z-index: 1;
+    }
+
+    .gameContent {
+        transform: translate(24%, -37%);
+        height: 29%;
+        padding: 7px 9px 25px 9px;
+        z-index: 1;
+    }
+
+    main button {
+        width: 66%;
+        font-size: 75%;
+        padding: 10px;
+        margin: 10px 0px 6px 0;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    h1 {
+        font-size: 70%;
+    }
+
+    #gameboy {
+        width: 123%;
+        height: auto;
+    }
+}
+
+@media (min-width: 501px) and (max-width: 600px) {
+    .centers {
+        display: block;
+        position: absolute;
+        transform: translate(-1%, 549%);
+    }
+
+    .restartButton {
+        background-color: #2fff00;
+        font-size: 9px;
+        height: 18px;
+        width: 99px;
+        border-radius: 10px;
+    }
+
+    .saltarButton {
+        background-color: #797979;
+        font-size: 9px;
+        height: 18px;
+        width: 77px;
+        border-radius: 10px;
+    }
+    main {
+        position: absolute;
+        z-index: 3;
+        transform: translate(2%, -82%);
+    }
+
+    header {
+        margin-top: 6px;
+        z-index: 1;
+    }
+
+    .gameContent {
+        transform: translate(24%, -37%);
+        height: 29%;
+        padding: 7px 9px 25px 9px;
+        z-index: 1;
+    }
+
+    main button {
+        width: 66%;
+        font-size: 75%;
+        padding: 10px;
+        margin: 10px 0px 6px 0;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    h1 {
+        font-size: 70%;
+    }
+
+    #gameboy {
+        width: 120%;
+        height: auto;
+    }
+}
+
+@media (min-width: 375px) and (max-width: 500px) {
+    .centers {
+        display: block;
+        position: absolute;
+        transform: translate(-1%, 446%);
+    }
+
+    .restartButton {
+        background-color: #2fff00;
+        font-size: 9px;
+        height: 18px;
+        width: 99px;
+        border-radius: 10px;
+    }
+
+    .saltarButton {
+        background-color: #797979;
+        font-size: 9px;
+        height: 18px;
+        width: 77px;
+        border-radius: 10px;
+    }
+    main {
+        position: absolute;
+        z-index: 3;
+        transform: translate(2%, -89%);
+    }
+
+    header {
+        margin-top: 6px;
+        z-index: 1;
+    }
+
+    .gameContent {
+        transform: translate(24%, -37%);
+        height: 29%;
+        padding: 7px 9px 25px 9px;
+        z-index: 1;
+    }
+
+    main button {
+        width: 68%;
+        font-size: 69%;
+        padding: 10px;
+        margin: 7px 0px 4px 0;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    h1 {
+        font-size: 70%;
+    }
+
+    #gameboy {
+        width: 104%;
+        height: auto;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 374px) {
+    .centers {
+        display: block;
+        position: absolute;
+        transform: translate(-1%, 446%);
+    }
+
+    .restartButton {
+        background-color: #2fff00;
+        font-size: 9px;
+        height: 18px;
+        width: 99px;
+        border-radius: 10px;
+    }
+
+    .saltarButton {
+        background-color: #797979;
+        font-size: 9px;
+        height: 18px;
+        width: 77px;
+        border-radius: 10px;
+    }
+    main {
+        z-index: 3;
+        transform: translate(-147%, -95%);
+    }
+
+    header {
+        margin-top: 6px;
+        z-index: 1;
+    }
+
+    .gameContent {
+        transform: translate(24%, -37%);
+        height: 29%;
+        padding: 7px 9px 25px 9px;
+        background-image: url(img/bgwhite.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: 1;
+    }
+
+    main button {
+        width: 165%;
+        font-size: 58%;
+        padding: 10px;
+        margin: 1px 0px 4px 0;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    h1 {
+        font-size: 70%;
+    }
+
+    #gameboy {
+        width: 104%;
+        height: auto;
+    }
+}
+
+@media (min-width: 300px) and (max-width: 319px) {
+    .centers {
+        transform: translate(0px, -95px);
+    }
+
+    main {
+        z-index: 3;
+        transform: translate(-172%, -83%);
+    }
+
+    header {
+        margin-top: 6px;
+        z-index: 1;
+    }
+
+    .gameContent {
+        transform: translate(22%, -52%);
+        height: 20%;
+        padding: 7px 9px 25px 9px;
+        background-image: url(img/bgwhite.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: 1;
+    }
+
+    main button {
+        width: 165%;
+        font-size: 58%;
+        padding: 10px;
+        margin: 1px 0px 4px 0;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    h1 {
+        font-size: 61%;
+    }
+
+    #gameboy {
+        width: 104%;
+        height: auto;
+    }
+}
+
+@media (min-width: 200px) and (max-width: 299px) {
+    .centers {
+        transform: translate(0px, -73px);
+    }
+    #gameboy {
+        width: 98%;
+        height: auto;
+    }
+}

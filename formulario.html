@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulario de Confirmación</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com/" />
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+  <link rel="icon" href='img/icono.png' type="image/x-icon'>
+  <link rel=" preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+
+  <!-- Firebase App (the core Firebase SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+</head>
+<style>
+  /* Tu CSS aquí */
+  body {
+    scroll-behavior: smooth;
+    background-image: url("img/bg.gif");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+  .game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  main form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  #canvas {
+    border: 2px solid black;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  :root {
+    --background-gradient: linear-gradient(178deg, #ffff33 10%, #3333ff);
+    --gray: #34495e;
+    --darkgray: #2c3e50;
+  }
+
+  select {
+    height: 68px;
+    appearance: none;
+    outline: 10px red;
+    border: 0;
+    box-shadow: none;
+    flex: 1;
+    padding: 0 1em;
+    background-image: none;
+    cursor: pointer;
+  }
+
+  select::-ms-expand {
+    display: none;
+  }
+
+  .select {
+    position: relative;
+    display: flex;
+    width: 20em;
+    height: 3em;
+    border-radius: 0.25em;
+    overflow: hidden;
+  }
+
+  .select::after {
+    content: "\25BC";
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1em;
+    background-color: #34495e;
+    transition: 0.25s all ease;
+    pointer-events: none;
+  }
+
+  .select:hover::after {
+    color: #f39c12;
+  }
+
+  a {
+    font-weight: bold;
+    color: var(--gray);
+    text-decoration: drop-shadow;
+    padding: 0.25em;
+    border-radius: 0.5em;
+    background: pink;
+  }
+
+  .container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .down_note {
+    display: flex;
+    justify-content: center;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  main button {
+    font-size: 21px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #8eff1c;
+    color: black;
+  }
+
+  .submit-button {
+    width: 166px;
+    background-color: #8eff1c;
+    font-size: 9px;
+    border-radius: 10px;
+  }
+
+  .music {
+    width: 83px;
+  }
+
+  .coin {
+    width: 100px;
+    height: 75px;
+  }
+
+  header h1 {
+    text-align: center;
+  }
+
+  .down_note {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  p label {
+    text-align: center;
+    font-size: 18px;
+  }
+
+  .camposAcompanantes {
+    width: 286px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #cuadroRegalo {
+    display: none;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid black;
+    padding: 20px;
+    border-radius: 10px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+  }
+
+  #cuadroRegalo p {
+    margin: 10px 0;
+  }
+
+  #cuadroRegalo button {
+    margin: 5px;
+    padding: 5px;
+    cursor: pointer;
+  }
+
+  .copy-button {
+    margin-left: 10px;
+    padding: 5px;
+    cursor: pointer;
+    background-color: #8eff1c;
+    border: none;
+    border-radius: 5px;
+    color: black;
+  }
+</style>
+
+<body>
+  <header>
+    <h1 style="color: white">Confirmación de Asistencia</h1>
+  </header>
+  <main>
+    <form id="formulario" method="post" onsubmit="enviarDatos(event)">
+      <label for="asistencia" style="color: rgb(0, 0, 0)">Asistencia:</label>
+      <select id="asistencia" name="asistencia">
+        <option value="voy_seguro">Voy seguro</option>
+        <option value="puedo_cambiar">Puedo cambiar de opinión</option>
+      </select><br /><br />
+      <label for="nombre" style="color: rgb(0, 0, 0)">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" required /><br /><br />
+
+      <label for="apellido" style="color: rgb(0, 0, 0)">Apellido:</label>
+      <input type="text" id="apellido" name="apellido" required /><br /><br />
+
+      <label for="email" style="color: rgb(0, 0, 0)">Email:</label>
+      <input type="email" id="email" name="email" required /><br /><br />
+
+      <label for="acompanantes" style="color: rgb(0, 0, 0)">Número de acompañantes:</label>
+      <select id="acompanantes" name="acompanantes" onchange="mostrarCamposAcompanantes()">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select><br /><br />
+
+      <div class="camposAcompanantes" id="camposAcompanantes"></div><br />
+
+      <label for="vegetarianos" style="color: rgb(0, 0, 0)">Vegetarianos:</label>
+      <select id="vegetarianos" name="vegetarianos">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select><br /><br />
+
+      <p style="color: rgb(0, 0, 0)"> Dresscode: Elegante Sport</p>
+
+
+      <button type="submit">Confirmar</button>
+    </form>
+
+    <div class="down_note">
+      <button class="submit-button" onclick="regalo()">
+        <p>Hace tu regalo</p>
+        <img class="coin" src="./img/coin.png" alt="gift" />
+      </button>
+      <button class="submit-button" onclick="musica()">
+        <p>Agrega musica</p>
+        <img class="music" src="./img/spotify.png" alt="gift" />
+      </button>
+      <button class="submit-button" onclick="regresarAInvitacion()">
+        Regresar a la invitación
+      </button>
+    </div>
+  </main>
+
+  <div id="cuadroRegalo">
+    <h2>CBU y Alias</h2>
+    <p>Para que no estes pensando en que regalar, podes darnos unos billetitos.</p><br />
+    <p>CBU: <span id="cbu">FLECHA.DISTE.LUZ</span>
+      <button class="copy-button" onclick="copiarTexto('cbu')">Copiar</button>
+    </p><br />
+    <p>Alias: <span id="alias">3840200500000010974333</span>
+      <button class="copy-button" onclick="copiarTexto('alias')">Copiar</button>
+    </p><br />
+    <button onclick="cerrarCuadro()">Cerrar</button>
+  </div>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyAiGVZtmlGJmU386DR0PI2k-BWMK8SLvoE",
+      authDomain: "levelup-wedding.firebaseapp.com",
+      projectId: "levelup-wedding",
+      storageBucket: "levelup-wedding.appspot.com",
+      messagingSenderId: "240732359221",
+      appId: "1:240732359221:web:4be49e7c975d56504bbf7c",
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Initialize Firestore
+    var db = firebase.firestore();
+
+    // Función para enviar los datos del formulario a Firestore
+    async function enviarDatos(event) {
+      event.preventDefault(); // Evita que el formulario se envíe automáticamente
+
+      var nombre = document.getElementById("nombre").value.trim();
+      var apellido = document.getElementById("apellido").value.trim();
+      var acompanantes = document.getElementById("acompanantes").value;
+      var email = document.getElementById("email").value.trim();
+      var asistencia = document.getElementById("asistencia").value;
+      var vegetarianos = document.getElementById("vegetarianos").value;
+
+      // Construir el ID del documento
+      var docId = `${nombre}-${apellido}`.replace(/\s+/g, '-').toLowerCase();
+
+      // Recoger datos de los acompañantes
+      var acompanantesData = [];
+      for (var i = 1; i <= acompanantes; i++) {
+        var nombreAcompanante = document.querySelector(`input[name='acompanante${i}Nombre']`).value.trim();
+        var parentescoAcompanante = document.querySelector(`input[name='acompanante${i}Parentesco']`).value.trim();
+        var edadAcompanante = document.querySelector(`select[name='acompanante${i}Edad']`).value;
+
+        acompanantesData.push({
+          nombre: nombreAcompanante,
+          parentesco: parentescoAcompanante,
+          edad: edadAcompanante
+        });
+      }
+
+      // Envía los datos a Firestore
+      try {
+        await db.collection("confirmaciones").doc(docId).set({
+          nombre: nombre,
+          apellido: apellido,
+          acompanantes: acompanantesData,
+          email: email,
+          asistencia: asistencia,
+          vegetarianos: vegetarianos
+        });
+
+        alert("¡Genial! Recibiras un mail con los datos de tu confirmación.");
+        document.getElementById("formulario").reset(); // Restablece el formulario después de enviarlo
+      } catch (error) {
+        console.error("Error al enviar los datos: ", error);
+        alert("Hubo un error al enviar los datos. Inténtalo de nuevo.");
+      }
+    }
+
+    function mostrarCamposAcompanantes() {
+      var numAcompanantes = document.getElementById("acompanantes").value;
+      var camposContainer = document.getElementById("camposAcompanantes");
+      camposContainer.innerHTML = ""; // Limpia los campos existentes
+
+      for (var i = 1; i <= numAcompanantes; i++) {
+        var campoNombre = document.createElement("div");
+        campoNombre.innerHTML = `
+            <label for="acompanante${i}Nombre" style="color: black;">Nombre y apellido del acompañante ${i}:</label>
+            <input type="text" name="acompanante${i}Nombre" required /><br/><br/>
+            <label for="acompanante${i}Parentesco" style="color: black;">Parentesco del acompañante ${i}:</label>
+            <input type="text" name="acompanante${i}Parentesco" required /><br/><br/>
+            <label for="acompanante${i}Edad" style="color: black;">Edad del acompañante ${i}:</label>
+            <select name="acompanante${i}Edad" required>
+              <option value="Mayor">Mayor</option>
+              <option value="0 a 2">0 a 2</option>
+              <option value="5 a 9">5 a 9</option>
+            </select><br/><br/>
+          `;
+        camposContainer.appendChild(campoNombre);
+      }
+    }
+
+    function regresarAInvitacion() {
+      window.location.href = "invitacion.html";
+    }
+
+    function musica() {
+      window.location.href = "https://open.spotify.com/playlist/3dggbdw7G9brIeeuRUH84m?si=c48dea487b9e434c&pt=ead7b887d9fb8f2451ec6a0b5580ea44";
+    }
+
+    function regalo() {
+      document.getElementById("cuadroRegalo").style.display = "block";
+    }
+
+    function cerrarCuadro() {
+      document.getElementById("cuadroRegalo").style.display = "none";
+    }
+
+    function copiarTexto(id) {
+      var texto = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(texto).then(function () {
+        alert("Texto copiado al portapapeles!");
+      }).catch(function (error) {
+        console.error("Error al copiar texto: ", error);
+        alert("Hubo un error al copiar el texto.");
+      });
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+{
+    "server": {
+        "baseDir": [
+            "./"
+        ],
+        "middlewares": [
+            {
+                "route": "/node_modules",
+                "handle": "redirect"
+            }
+        ]
+    },
+    "port": 3000,
+    "open": true,
+    "files": [
+        "index.html"
+    ]
+}

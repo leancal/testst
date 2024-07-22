@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invitación</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="invitacion.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="icon" href='img/icono.png' type="image/x-icon'>
+  <link rel=" preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    #muteButton {
+      position: absolute;
+      top: 39px;
+      right: -3%;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    #muteButton img {
+      width: 30px;
+      height: 30px;
+    }
+    @media (min-width: 375px) and (max-width: 424px) {
+      #muteButton {
+        position: absolute;
+        top: 39px;
+        right: 26%;
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <div class="game">
+      <img id="gameboy" src="img/gameBoybg.png" alt="Gameboy" />
+
+      <div class="gameover centers">
+        <button class="restartButton" onclick="irAFormulario()">
+          ¡Sí, voy!
+        </button>
+        <button class="saltarButton" onclick="noVoy()">No voy</button>
+        <div>
+          <button class="muteButton" onclick="volver()">
+            Volver
+          </button>
+          <button class="muteButton" id="muteButton" onclick="toggleMute()">
+            <img
+              id="muteIcon"
+              src="img/speaker-wave-2-svgrepo-com.svg"
+              alt="Mute Button"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Elemento de audio -->
+  <audio id="backgroundMusic" src="./sounds/pokemon.wav" loop></audio>
+
+  <script>
+    function irAFormulario() {
+      window.location.href = "formulario.html";
+    }
+
+    function noVoy() {
+      alert("¡QUE LASTIMA, VOS TE LO PERDES!.");
+    }
+
+    function volver() {
+      window.location.href = "index.html";
+    }
+
+    function cambiarImagen() {
+      const gameboy = document.getElementById("gameboy");
+      if (window.innerWidth <= 768 || window.innerWidth <= 425) {
+        gameboy.src = "img/gbPoketinv.png";
+      } else {
+        gameboy.src = "img/gameBoybg.png";
+      }
+    }
+
+    function cerrarCard() {
+      const card = document.querySelector(".card");
+      card.style.display = "none";
+    }
+
+    window.addEventListener("load", cambiarImagen);
+    window.addEventListener("resize", cambiarImagen);
+
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const controlButtons = document.querySelectorAll(".controler button");
+
+      controlButtons.forEach((button) => {
+        button.addEventListener("contextmenu", function (event) {
+          event.preventDefault();
+        });
+      });
+
+      // Reproducir la música de fondo al cargar la página
+      const backgroundMusic = document.getElementById("backgroundMusic");
+      backgroundMusic.play().catch((error) => {
+        console.log("Error al reproducir la música:", error);
+      });
+    });
+
+    function toggleMute() {
+      const backgroundMusic = document.getElementById("backgroundMusic");
+      const muteIcon = document.getElementById("muteIcon");
+
+      if (backgroundMusic.muted) {
+        backgroundMusic.muted = false;
+        muteIcon.src = "img/speaker-wave-2-svgrepo-com.svg";
+      } else {
+        backgroundMusic.muted = true;
+        muteIcon.src = "img/speaker-xmark-svgrepo-com.svg";
+      }
+    }
+  </script>
+</body>
+</html>

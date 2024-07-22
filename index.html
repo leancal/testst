@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="style.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/home.css">
+  <link rel="stylesheet" type="text/css" href="css/button.css">
+  <link rel="icon" href='img/icono.png' type="image/x-icon'>
+  <link rel=" preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <title>Game Landing</title>
+  <style>
+    #muteButton {
+    position: absolute;
+    top: 39px;
+    right: -3%;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+    #muteButton img {
+      width: 30px;
+      height: 30px;
+    }
+    @media (min-width: 375px) and (max-width: 424px) {
+      #muteButton {
+        position: absolute;
+        top: 39px;
+        right: 26%;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+}
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1></h1>
+  </header>
+  <div class="game">
+    <img id="gameboy" src="img/gbPoket.png" alt="Gameboy">
+    <canvas id="canvas" width="960" height="768"></canvas>
+    <section class="keys">
+      <span>W</span>
+      <span>A</span>
+      <span>S</span>
+      <span>D</span>
+    </section>
+
+    <section class="joystick center">
+      <div class="animations">
+        <aside class="left-hand">
+          <div class="controler">
+            <button id="btnLeft" class="left"><i></i></button>
+            <button id="btnUp" class="top"><i></i></button>
+            <button id="btnRight" class="right"><i></i></button>
+            <button id="btnDown" class="bottom"><i></i></button>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </div>
+  <div class="gameover centers">
+    <button class="restartButton" onclick="reiniciar()">Restart</button>
+    <button class="saltarButton" onclick="irAInvitacion()">Saltar</button>
+    <button class="muteButton" id="muteButton" onclick="toggleMute()">
+      <img id="muteIcon" src="img/speaker-wave-2-svgrepo-com.svg" alt="Mute Button">
+    </button>
+  </div>
+
+  <!-- Popup de reglas -->
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <h2>Reglas</h2>
+      <p>Debes manejar a Gini(Perro) con la cruz <img src="img/cross.png" alt="cross" width="30px"
+          style="transform: translate(0px, 10px);"> y dirigirlo hacia la
+        puerta de la iglesia.</p>
+      <hr>
+      <p>Para saltar el juego, presiona la tecla <img src="img/salto.png" alt="salto" width="50px"
+          style="transform: translate(8px, 17px);"></p>
+      <button id="closePopup">Cerrar</button>
+    </div>
+  </div>
+
+  <footer></footer>
+
+
+
+  <audio id="backgroundMusic" src="./sounds/pokemon.wav" loop></audio>
+
+  <script src="./public/src/entities.js"></script>
+  <script src="./public/src/EventsManager.js"></script>
+  <script src="dist/game.min.js"></script>
+  <script src="./public/src/gameManager.js"></script>
+  <script>
+    let gameManager = null;
+    let eventsManager = null;
+
+    function irAInvitacion() {
+      window.location.href = './invitacion.html';
+    }
+
+    function togglePause() {
+      gameManager.togglePause();
+    }
+
+    function reiniciar() {
+      window.location.reload(true); // Recargar la página y borrar la caché
+    }
+
+    function cambiarImagen() {
+      const gameboy = document.getElementById('gameboy');
+      if (window.innerWidth <= 768 || window.innerWidth <= 425) {
+        gameboy.src = 'img/gbPoket.png';
+      } else {
+        gameboy.src = 'img/switch.png';
+      }
+    }
+
+    window.addEventListener('load', cambiarImagen);
+    window.addEventListener('resize', cambiarImagen);
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+      const controlButtons = document.querySelectorAll('.controler button');
+
+      controlButtons.forEach(button => {
+        button.addEventListener('contextmenu', function (event) {
+          event.preventDefault();
+        });
+      });
+
+      // Mostrar el popup al cargar la página
+      const popup = document.getElementById('popup');
+      const closePopup = document.getElementById('closePopup');
+
+      closePopup.addEventListener('click', () => {
+        popup.style.display = 'none';
+        // Reproducir la música de fondo al cerrar el popup
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        backgroundMusic.play().catch(error => {
+          console.log('Error al reproducir la música:', error);
+        });
+      });
+
+      popup.style.display = 'block';
+    });
+
+    function toggleMute() {
+      const backgroundMusic = document.getElementById('backgroundMusic');
+      const muteIcon = document.getElementById('muteIcon');
+
+      if (backgroundMusic.muted) {
+        backgroundMusic.muted = false;
+        muteIcon.src = 'img/speaker-wave-2-svgrepo-com.svg';
+      } else {
+        backgroundMusic.muted = true;
+        muteIcon.src = 'img/speaker-xmark-svgrepo-com.svg';
+      }
+    }
+  </script>
+</body>
+
+</html>
